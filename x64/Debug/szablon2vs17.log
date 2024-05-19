@@ -1,0 +1,15 @@
+﻿  main.cpp
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(363,22): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(362,21): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(380,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(383,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(386,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(389,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(379,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(382,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(385,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(388,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(224,12): warning C4101: 'event': unreferenced local variable
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(221,14): warning C4101: 'quit': unreferenced local variable
+C:\Users\Stan Swirydczuk\Desktop\donkey kong\main.cpp(222,16): warning C4101: 'worldTime': unreferenced local variable
+  szablon2vs17.vcxproj -> C:\Users\Stan Swirydczuk\Desktop\donkey kong\x64\Debug\szablon2vs17.exe
