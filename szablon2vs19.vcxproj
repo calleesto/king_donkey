@@ -32,9 +32,14 @@
     <Image Include="gojo_climb1.bmp" />
     <Image Include="gojo_climb2.bmp" />
     <Image Include="gojo_jump.bmp" />
+    <Image Include="gojo_jump1.bmp" />
+    <Image Include="gojo_jump2.bmp" />
     <Image Include="gojo_left.bmp" />
     <Image Include="gojo_right.bmp" />
+    <Image Include="gojo_slide.bmp" />
     <Image Include="mc_dead.bmp" />
+    <Image Include="sukuna1.bmp" />
+    <Image Include="sukuna2.bmp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
