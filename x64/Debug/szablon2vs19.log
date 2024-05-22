@@ -1,40 +1,40 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (szablon2vs17.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(353,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(356,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(359,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(362,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(370,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(373,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(376,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(379,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(387,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(390,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(393,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(396,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(404,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(407,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(410,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(413,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(431,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(446,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(461,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(475,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(842,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(845,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(859,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(841,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(844,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(858,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(888,27): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(895,27): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(903,27): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(929,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(928,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1064,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1072,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1081,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(354,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(357,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(360,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(363,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(371,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(374,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(377,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(380,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(388,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(391,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(394,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(397,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(405,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(408,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(411,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(414,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(432,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(447,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(462,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(476,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(855,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(858,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(872,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(854,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(857,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(871,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(911,27): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(918,27): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(926,27): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(952,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(951,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1090,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(820): warning C4715: 'initializeSDL': not all control paths return a value
-C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(776): warning C4715: 'loadAllImages': not all control paths return a value
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1098,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1107,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1116,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(833): warning C4715: 'initializeSDL': not all control paths return a value
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(789): warning C4715: 'loadAllImages': not all control paths return a value
   szablon2vs19.vcxproj -> C:\Users\Stasiu\Desktop\kingdong\king_donkey\x64\Debug\szablon2vs19.exe
