@@ -29,7 +29,8 @@ extern "C" {
 #define LADDER_CLIMB_SPEED		100 // higher = slower
 #define LADDER_SLIDE_SPEED		100 // higher = slower
 
-#define ANIMATION_SPEED			3  // higher = slower
+#define ANIMATION_SPEED			0.2 // higher = slower
+#define BARREL_ANIMATION_SPEED	0.2
 
 
 
@@ -52,11 +53,15 @@ extern "C" {
 //barrel parameters
 #define BARREL_WIDTH			30
 #define BARREL_HEIGHT			30
-#define BARREL_SPEED			50
+#define BARREL_SPEED			200
 #define BARREL_SPAWN_X			SCREEN_WIDTH - 100
-#define BARREL_SPAWN_Y			PLATFORM_ROW_THREE_Y - BARREL_HEIGHT
+#define BARREL_SPAWN_Y			97
+
+#define ANTAGONIST_SPAWN_X		SCREEN_WIDTH - 100
+#define ANTAGONIST_SPAWN_Y		PLATFORM_ROW_THREE_Y - BARREL_HEIGHT
+
 #define SENSITIVITY_RADIUS		40
-#define BARREL_SPAWN_INTERVAL	5
+#define BARREL_SPAWN_INTERVAL	1
 #define MAX_BARRELS				1000
 #define JUMP_VELOCITY			-40
 #define GRAVITY					9.8
@@ -77,12 +82,12 @@ void drawLadder(SDL_Surface* screen, int x, int y, int blue);
 void drawPlatform(SDL_Surface* screen, int x, int y, int l, int blue);
 int checkCollisionWithLadder(int charX, int charY, int charWidth, int charHeight, struct Hitbox* ladderHitbox);
 void drawLevelOne(SDL_Surface* screen, int green, int blue, int red);
-void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element);
-void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* explosion, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState);
+void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element, struct Barrel* barrel);
+void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* explosion, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState, struct Elements* element);
 void SpawnBarrel(struct Barrel* barrel);
 int loadAllImages(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* screen, SDL_Texture* scrtex, struct Player* mainchar, struct Elements* element);
 int initializeSDL(struct Player* mainchar, struct Elements* element, struct Colors* colors, SDL_Event* event, SDL_Surface** screen, SDL_Texture** scrtex, SDL_Window** window, SDL_Renderer** renderer);
-void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct KeyboardInstructions* instructions, struct Elements* element, struct Player* mainchar, struct GameState* gameState, struct Barrel* barrel);
+void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct KeyboardInstructions* instructions, struct Elements* element, struct Player* mainchar, struct GameState* gameState, struct Barrel barrel[MAX_BARRELS]);
 void spawnBarrels(struct Player* mainchar, SDL_Surface* screen, struct Barrel barrels[MAX_BARRELS], struct Elements* element, struct GameState* gameState);
 void mcMovement(struct Player* mainchar, struct KeyboardInstructions* instructions, struct Barrel barrels[MAX_BARRELS], SDL_Surface* screen, struct GameState* gameState);
 void updateRenderer(SDL_Texture* scrtex, SDL_Surface* screen, SDL_Renderer* renderer);
@@ -92,6 +97,7 @@ void closingGame(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* screen
 void ifVictory(struct Player* mainchar, struct KeyboardInstructions* instructions, SDL_Surface* screen, struct GameState* gameState, struct Colors* colors, struct Elements* element);
 void printLadderCords();
 void updateCharacterMovement(struct Hitbox ladders[6], SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Hitbox* ladderHitbox);
+void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element);
 
 struct KeyboardInstructions {
 	SDL_Event event;
@@ -110,7 +116,7 @@ struct Hitbox {
 
 struct Barrel {
 	double x;
-	double y;
+	int y;
 	bool isAlive;
 };
 
@@ -147,6 +153,10 @@ struct Elements {
 	SDL_Surface* sukuna1;
 	SDL_Surface* sukuna2;
 	SDL_Surface* eti;
+	SDL_Surface* barrel1;
+	SDL_Surface* barrel2;
+	SDL_Surface* barrel3;
+	SDL_Surface* barrel4;
 };
 
 struct Colors {
@@ -162,6 +172,7 @@ struct GameState {
 	double epsilon;
 	double timeSinceLastSpawn;
 	double timeTracker;
+	double barrelTimeTracker;
 	double fpsTimer;
 	double fps;
 	int frames;
@@ -257,7 +268,7 @@ void drawLevelOne(SDL_Surface* screen, int green, int blue, int red) {
 	drawLadder(screen, LADDER_COLUMN_THREE_X, LADDER_ROW_THREE_Y, red);
 }
 
-void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element) {
+void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element, struct Barrel* barrel) {
 	// MAIN CHARACTER ANIMATIONS
 
 	// MC DEAD 
@@ -317,45 +328,104 @@ void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardIns
 	//ANTAGONIST ANIMATIONS
 
 	if (gameState->timeSinceLastSpawn < BARREL_SPAWN_INTERVAL && mainchar->isAlive) {
-		DrawSurface(screen, element->sukuna1, BARREL_SPAWN_X + BARREL_WIDTH, BARREL_SPAWN_Y);
+		DrawSurface(screen, element->sukuna1, ANTAGONIST_SPAWN_X + BARREL_WIDTH, ANTAGONIST_SPAWN_Y);
 	}
 	if (gameState->timeSinceLastSpawn >= BARREL_SPAWN_INTERVAL - 2 && mainchar->isAlive) {
-		DrawSurface(screen, element->sukuna2, BARREL_SPAWN_X + BARREL_WIDTH, BARREL_SPAWN_Y);
+		DrawSurface(screen, element->sukuna2, ANTAGONIST_SPAWN_X + BARREL_WIDTH, ANTAGONIST_SPAWN_Y);
 	}
 	if (gameState->timeSinceLastSpawn >= BARREL_SPAWN_INTERVAL - 1.5 && mainchar->isAlive) {
-		DrawSurface(screen, element->sukuna1, BARREL_SPAWN_X + BARREL_WIDTH, BARREL_SPAWN_Y);
+		DrawSurface(screen, element->sukuna1, ANTAGONIST_SPAWN_X + BARREL_WIDTH, ANTAGONIST_SPAWN_Y);
 	}
 	if (gameState->timeSinceLastSpawn >= BARREL_SPAWN_INTERVAL - 1 && mainchar->isAlive) {
-		DrawSurface(screen, element->sukuna2, BARREL_SPAWN_X + BARREL_WIDTH, BARREL_SPAWN_Y);
+		DrawSurface(screen, element->sukuna2, ANTAGONIST_SPAWN_X + BARREL_WIDTH, ANTAGONIST_SPAWN_Y);
 	}
 	if (gameState->timeSinceLastSpawn >= BARREL_SPAWN_INTERVAL - 0.5 && mainchar->isAlive) {
-		DrawSurface(screen, element->sukuna1, BARREL_SPAWN_X + BARREL_WIDTH, BARREL_SPAWN_Y);
+		DrawSurface(screen, element->sukuna1, ANTAGONIST_SPAWN_X + BARREL_WIDTH, ANTAGONIST_SPAWN_Y);
 	}
 	if (mainchar->isAlive == 0) {
-		//DrawSurface(screen, element->antagonist2, BARREL_SPAWN_X + BARREL_WIDTH, BARREL_SPAWN_Y); DRAW HAPPY VILLAIN
+		//DrawSurface(screen, element->antagonist2, ANTAGONIST_SPAWN_X + BARREL_WIDTH, ANTAGONIST_SPAWN_Y); DRAW HAPPY VILLAIN
 	}
+}
 
-
-	//BARREL ANIMATIONS
-	if (gameState->timeSinceLastSpawn < BARREL_SPAWN_INTERVAL && mainchar->isAlive) {
-		
+void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element) {
+	if (barrel->y == BARREL_SPAWN_Y && mainchar->isAlive) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
 	}
-	if (gameState->timeSinceLastSpawn < BARREL_SPAWN_INTERVAL && mainchar->isAlive) {
-		
+	if (barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && mainchar->isAlive) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
 	}
-	if (gameState->timeSinceLastSpawn < BARREL_SPAWN_INTERVAL && mainchar->isAlive) {
-		
+	if (barrel->y == 321 && mainchar->isAlive) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
 	}
-
+	if (barrel->y == 433 && mainchar->isAlive) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
+	}
 }
 
 //set path for the barrels and if statement for contact with main character
-void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* explosion, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState) {
+void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* explosion, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState, struct Elements* element) {
 
-	if (barrel->x >= 50 && barrel->y == 82) {
+	if (barrel->x >= 50 && barrel->y == BARREL_SPAWN_Y) {
 		barrel->x -= (BARREL_SPEED * gameState->delta);
 		if (mainchar->isAlive == 1) {
-			DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+			//DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
 		}
 		if (mainchar->isAlive == 0) {
 			DrawSurface(screen, explosion, barrel->x, barrel->y);
@@ -366,44 +436,46 @@ void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* e
 		barrel->y += PLATFORM_ROW_THREE_Y;
 	}
 
-	if (barrel->x <= BARREL_SPAWN_X && barrel->y == 194) {
+	if (barrel->x <= BARREL_SPAWN_X && barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
 		barrel->x += (BARREL_SPEED * gameState->delta);
 		if (mainchar->isAlive == 1) {
-			DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+			//DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
 		}
 		if (mainchar->isAlive == 0) {
 			DrawSurface(screen, explosion, barrel->x, barrel->y);
 		}
 	}
 
-	if (barrel->x > BARREL_SPAWN_X && barrel->y == 194) {
+	if (barrel->x > BARREL_SPAWN_X && barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
 		barrel->y += PLATFORM_ROW_THREE_Y;
 	}
 
-	if (barrel->x >= 50 && barrel->y == 306) {
+	if (barrel->x >= 50 && barrel->y == 321) {
 		barrel->x -= (BARREL_SPEED * gameState->delta);
 		if (mainchar->isAlive == 1) {
-			DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+			//DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
 		}
 		if (mainchar->isAlive == 0) {
 			DrawSurface(screen, explosion, barrel->x, barrel->y);
 		}
 	}
 
-	if (barrel->x < 50 && barrel->y == 306) {
+	if (barrel->x < 50 && barrel->y == 321) {
 		barrel->y += PLATFORM_ROW_THREE_Y;
 	}
 
-	if (barrel->x <= BARREL_SPAWN_X && barrel->y == 418) {
+	if (barrel->x <= BARREL_SPAWN_X && barrel->y == 433) {
 		barrel->x += (BARREL_SPEED * gameState->delta);
 		if (mainchar->isAlive == 1) {
-			DrawSurface(screen, barrelbmp, barrel->x, barrel->y);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
 		if (mainchar->isAlive == 0) {
 			DrawSurface(screen, explosion, barrel->x, barrel->y);
 		}
 	}
-	if (barrel->x >= BARREL_SPAWN_X && barrel->y == 418) {
+	if (barrel->x >= BARREL_SPAWN_X && barrel->y == 433) {
 		barrel->isAlive = false;
 	}
 
@@ -582,6 +654,54 @@ int loadAllImages(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* scree
 		return 1;
 	};
 
+	element->barrel1 = SDL_LoadBMP("./barrel1.bmp");
+	if (element->barrel1 == NULL) {
+		printf("SDL_LoadBMP(barrel1.bmp) error: %s\n", SDL_GetError());
+		SDL_FreeSurface(element->charset);
+		SDL_FreeSurface(screen);
+		SDL_DestroyTexture(scrtex);
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		return 1;
+	};
+
+	element->barrel2 = SDL_LoadBMP("./barrel2.bmp");
+	if (element->barrel2 == NULL) {
+		printf("SDL_LoadBMP(barrel2.bmp) error: %s\n", SDL_GetError());
+		SDL_FreeSurface(element->charset);
+		SDL_FreeSurface(screen);
+		SDL_DestroyTexture(scrtex);
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		return 1;
+	};
+
+	element->barrel3 = SDL_LoadBMP("./barrel3.bmp");
+	if (element->barrel3 == NULL) {
+		printf("SDL_LoadBMP(barrel3.bmp) error: %s\n", SDL_GetError());
+		SDL_FreeSurface(element->charset);
+		SDL_FreeSurface(screen);
+		SDL_DestroyTexture(scrtex);
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		return 1;
+	};
+
+	element->barrel4 = SDL_LoadBMP("./barrel4.bmp");
+	if (element->barrel4 == NULL) {
+		printf("SDL_LoadBMP(barrel4.bmp) error: %s\n", SDL_GetError());
+		SDL_FreeSurface(element->charset);
+		SDL_FreeSurface(screen);
+		SDL_DestroyTexture(scrtex);
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		return 1;
+	};
+
 	element->explosion = SDL_LoadBMP("./explosion.bmp");
 	if (element->explosion == NULL) {
 		printf("SDL_LoadBMP(explosion.bmp) error: %s\n", SDL_GetError());
@@ -699,7 +819,7 @@ int initializeSDL(struct Player* mainchar, struct Elements* element, struct Colo
 	colors->blue = SDL_MapRGB((*screen)->format, 0x11, 0x11, 0xCC);
 }
 
-void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct KeyboardInstructions* instructions, struct Elements* element, struct Player* mainchar, struct GameState* gameState, struct Barrel* barrel) {
+void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct KeyboardInstructions* instructions, struct Elements* element, struct Player* mainchar, struct GameState* gameState, struct Barrel barrels[MAX_BARRELS]) {
 	SDL_FillRect(screen, NULL, colors->black);
 
 	drawLevelOne(screen, colors->green, colors->blue, colors->red);
@@ -724,16 +844,21 @@ void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct Keyboard
 	sprintf(colors->text, "Esc - EXIT PROGRAM, n - NEW GAME");
 	DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 26, colors->text, element->charset);
 
-	sprintf(colors->text, "W - CLIMB LADDER, A - GO LEFT, S - DESCEND LADDER,  D - GO RIGHT");
-	DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
+	//sprintf(colors->text, "W - CLIMB LADDER, A - GO LEFT, S - DESCEND LADDER,  D - GO RIGHT");
+	//DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
 
 	//sprintf(colors->text, "IMPLEMENTED ELEMENTS: 1,2,3,4,C; MC is alive: %d", mainchar->isAlive);
 	//DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 58, colors->text, element->charset);
 
 
-	//sprintf(colors->text, "barrelX: %d, barrelY: %d", barrel->x, barrel->y);
+	//sprintf(colors->text, "barrelTimeTracker %f", gameState->barrelTimeTracker);
 	//DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
+	
+	
+	sprintf(colors->text, "barrelY %d", barrels[0].y);
+	DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
 
+	
 	//sprintf(colors->text, "mcX: %d, mcY: %d", mainchar->mcX, mainchar->mcY);
 	//DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 58, colors->text, element->charset);
 
@@ -752,7 +877,7 @@ void spawnBarrels(struct Player* mainchar, SDL_Surface* screen, struct Barrel ba
 	}
 
 	for (int i = 0; i < MAX_BARRELS; i++) {
-		UpdateBarrel(&barrels[i], mainchar, element->explosion, screen, element->barrelbmp, gameState);
+		UpdateBarrel(&barrels[i], mainchar, element->explosion, screen, element->barrelbmp, gameState, element);
 	}
 }
 
@@ -1017,6 +1142,7 @@ int main(int argc, char** argv) {
 	gameState.epsilon = SENSITIVITY_RADIUS;
 	gameState.timeSinceLastSpawn = 0.0;
 	gameState.timeTracker = 0.0;
+	gameState.barrelTimeTracker = 0.0;
 	for (int i = 0; i < MAX_BARRELS; ++i) {
 		barrels[i].isAlive = false;
 	}
@@ -1042,11 +1168,12 @@ int main(int argc, char** argv) {
 
 		gameState.timeSinceLastSpawn += gameState.delta;
 		gameState.timeTracker += gameState.delta;
+		gameState.barrelTimeTracker += gameState.delta;
 
 		instructions.onLadder = 0;
 
 		//print background
-		printAllVisuals(screen, &colors, &instructions, &element, &mainchar, &gameState, &barrel);
+		printAllVisuals(screen, &colors, &instructions, &element, &mainchar, &gameState, barrels);
 
 		//spawn barrels
 		spawnBarrels(&mainchar, screen, barrels, &element, &gameState);
@@ -1061,7 +1188,7 @@ int main(int argc, char** argv) {
 		// logic for when mc falls off the edge of a platform
 		fallingOffPlatform(&mainchar, &gameState);
 
-		animations(screen, &mainchar, &instructions, &gameState, &element);
+		animations(screen, &mainchar, &instructions, &gameState, &element, &barrel);
 
 		ifVictory(&mainchar, &instructions, screen, &gameState, &colors, &element);
 

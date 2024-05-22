@@ -1,2 +1,40 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (szablon2vs17.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  szablon2vs19.vcxproj -> C:\Users\Stasiu\Desktop\donkey kong\x64\Debug\szablon2vs19.exe
+  main.cpp
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(353,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(356,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(359,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(362,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(370,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(373,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(376,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(379,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(387,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(390,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(393,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(396,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(404,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(407,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(410,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(413,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(431,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(446,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(461,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(475,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(842,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(845,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(859,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(841,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(844,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(858,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(888,27): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(895,27): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(903,27): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(929,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(928,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1064,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1072,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1081,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(1090,54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(820): warning C4715: 'initializeSDL': not all control paths return a value
+C:\Users\Stasiu\Desktop\kingdong\king_donkey\main.cpp(776): warning C4715: 'loadAllImages': not all control paths return a value
+  szablon2vs19.vcxproj -> C:\Users\Stasiu\Desktop\kingdong\king_donkey\x64\Debug\szablon2vs19.exe

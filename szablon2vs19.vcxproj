@@ -25,6 +25,10 @@
     <Image Include="antagonist.bmp" />
     <Image Include="antagonist2.bmp" />
     <Image Include="barrel.bmp" />
+    <Image Include="barrel1.bmp" />
+    <Image Include="barrel2.bmp" />
+    <Image Include="barrel3.bmp" />
+    <Image Include="barrel4.bmp" />
     <Image Include="cs8x8.bmp" />
     <Image Include="eti.bmp" />
     <Image Include="explosion.bmp" />
