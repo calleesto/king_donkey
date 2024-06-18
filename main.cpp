@@ -145,6 +145,8 @@ struct Player {
 	SDL_Surface* activeImage;
 	bool isAlive;
 	bool isJumping;
+	bool isJumpingLeft;
+	bool isJumpingRight;
 	bool movingRight;
 	bool movingLeft;
 	bool isClimbing;
@@ -185,6 +187,8 @@ struct GameState {
 	double barrelTimeTracker;
 	double timerOne;
 	double jumpTimer;
+	double jumpTimerLeft;
+	double jumpTimerRight;
 	double fpsTimer;
 	double fps;
 	int frames;
@@ -314,6 +318,14 @@ void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardIns
 	//	mainchar->activeImage = mainchar->mc_jump;
 	//}
 	// CLIMBING 1
+		// STANDING STILL
+	else if (mainchar->isAlive && mainchar->isJumpingLeft) {
+		mainchar->activeImage = mainchar->mc_jump1;
+	}
+	else if (mainchar->isAlive && mainchar->isJumpingRight) {
+		mainchar->activeImage = mainchar->mc_jump2;
+	}
+
 	else if (mainchar->isAlive && gameState->timeTracker < ANIMATION_SPEED && mainchar->isClimbing) {
 		mainchar->activeImage = mainchar->mc_climb1;
 	}
@@ -332,10 +344,6 @@ void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardIns
 	}
 	else if (mainchar->isAlive && instructions->onLadder) {
 		mainchar->activeImage = mainchar->mc_climb1;
-	}
-	// STANDING STILL
-	else if (mainchar->isAlive && mainchar->isJumping) {
-		mainchar->activeImage = mainchar->mc_jump;
 	}
 	else if (mainchar->isAlive) {
 		mainchar->activeImage = mainchar->mc;
@@ -991,6 +999,8 @@ void mcMovement(struct Player* mainchar, struct KeyboardInstructions* instructio
 				mainchar->mcX = MC_SPAWN_X;
 				mainchar->mcY = MC_SPAWN_Y; 
 				mainchar->isJumping = false;
+				mainchar->isJumpingLeft = false;
+				mainchar->isJumpingRight = false;
 				for (int i = 0; i < MAX_BARRELS; ++i) {
 					if (barrels[i].isAlive) {
 						barrels[i].isAlive = false;
@@ -1112,9 +1122,19 @@ void updateCharacterMovement(struct Hitbox ladders[6], SDL_Surface* screen, stru
 	}
 
 
-	// jumping
-	if (instructions->keys[SDL_SCANCODE_SPACE] && mainchar->isAlive == 1) {
-		mainchar->isJumping = true;
+	// jumping horizontally
+	//if (instructions->keys[SDL_SCANCODE_SPACE] && mainchar->isAlive == 1) {
+		//mainchar->isJumping = true;
+	//}
+
+	// jumping diagonally left
+	if (instructions->keys[SDL_SCANCODE_SPACE] && instructions->keys[SDL_SCANCODE_A] && mainchar->isAlive == 1) {
+		mainchar->isJumpingLeft = true;
+	}
+
+	// jumping diagonally left
+	if (instructions->keys[SDL_SCANCODE_SPACE] && instructions->keys[SDL_SCANCODE_D] && mainchar->isAlive == 1) {
+		mainchar->isJumpingRight = true;
 	}
 }
 
@@ -1124,15 +1144,19 @@ void jumping(struct Player* mainchar, struct GameState* gameState) {
 		// logic for going up
 		if (gameState->jumpTimer <= 0.1 && gameState->jumpTimer > 0.0) { // od 0 do 0.1
 			mainchar->mcY -= JUMP_SPEED;
+			mainchar->mcX += JUMP_SPEED;
 		}
 		if (gameState->jumpTimer <= 0.2 && gameState->jumpTimer > 0.1) {
 			mainchar->mcY -= JUMP_SPEED;
+			mainchar->mcX += JUMP_SPEED;
 		}
 		if (gameState->jumpTimer <= 1 && gameState->jumpTimer > 0.9) {
 			mainchar->mcY += JUMP_SPEED;
+			mainchar->mcX += JUMP_SPEED;
 		}
 		if (gameState->jumpTimer <= 1.1 && gameState->jumpTimer > 1) {
 			mainchar->mcY += JUMP_SPEED;
+			mainchar->mcX += JUMP_SPEED;
 			if (mainchar->mcY <= 425 && mainchar->mcY > 311) {
 				mainchar->mcY = 425;
 			}
@@ -1147,6 +1171,124 @@ void jumping(struct Player* mainchar, struct GameState* gameState) {
 			}
 			gameState->jumpTimer = 0.0;
 			mainchar->isJumping = false;
+		}
+	}
+}
+
+void jumpingLeft(struct Player* mainchar, struct GameState* gameState) {
+	if (mainchar->isJumpingLeft == true) {
+		//int count = gameState->jumpTimerLeft / gameState->delta;
+		// logic for going up
+		if (gameState->jumpTimerLeft <= 0.15 && gameState->jumpTimerLeft > 0.0) { // od 0 do 0.1
+			if (mainchar->mcX >= SCREEN_WIDTH - PLATFORM_ONE_X && mainchar->mcX < SCREEN_WIDTH && mainchar->mcY <= 311 && mainchar->mcY > 87) {
+				mainchar->mcY -= JUMP_SPEED * 3;
+			}
+			else {
+				mainchar->mcY -= JUMP_SPEED;
+			}
+			mainchar->mcX -= JUMP_SPEED;
+		}
+		if (gameState->jumpTimerLeft <= 0.3 && gameState->jumpTimerLeft > 0.15) {
+			if (mainchar->mcX >= SCREEN_WIDTH - PLATFORM_ONE_X && mainchar->mcX < SCREEN_WIDTH && mainchar->mcY <= 311 && mainchar->mcY > 87) {
+				mainchar->mcY -= JUMP_SPEED * 3;
+			}
+			else {
+				mainchar->mcY -= JUMP_SPEED;
+			}
+			mainchar->mcX -= JUMP_SPEED;
+		}
+		if (gameState->jumpTimerLeft <= 0.45 && gameState->jumpTimerLeft > 0.3) {
+			if (mainchar->mcX >= SCREEN_WIDTH - PLATFORM_ONE_X && mainchar->mcX < SCREEN_WIDTH && mainchar->mcY <= 311 && mainchar->mcY > 87) {
+				mainchar->mcY += JUMP_SPEED;
+			}
+			else {
+				mainchar->mcY += JUMP_SPEED;
+			}
+			mainchar->mcX -= JUMP_SPEED;
+		}
+		if (gameState->jumpTimerLeft <= 0.6 && gameState->jumpTimerLeft > 0.45) {
+			if (mainchar->mcX >= SCREEN_WIDTH - PLATFORM_ONE_X && mainchar->mcX < SCREEN_WIDTH && mainchar->mcY <= 311 && mainchar->mcY > 87) {
+				//nothing
+			}
+			else {
+				mainchar->mcY += JUMP_SPEED;
+			}
+			mainchar->mcX -= JUMP_SPEED;
+		}
+		if (gameState->jumpTimerLeft <= 0.75 && gameState->jumpTimerLeft > 0.6) {
+			if (mainchar->mcY <= 440 && mainchar->mcY > 311) {
+				mainchar->mcY = 425;
+			}
+			if (mainchar->mcY <= 326 && mainchar->mcY > 199) {
+				mainchar->mcY = 311;
+			}
+			if (mainchar->mcY <= 214 && mainchar->mcY > 87) {
+				mainchar->mcY = 199;
+			}
+			if (mainchar->mcY <= 102 && mainchar->mcY > -25) {
+				mainchar->mcY = 87;
+			}
+			gameState->jumpTimerLeft = 0.0;
+			mainchar->isJumpingLeft = false;
+		}
+	}
+}
+
+void jumpingRight(struct Player* mainchar, struct GameState* gameState) {
+	if (mainchar->isJumpingRight == true) {
+		//int count = gameState->jumpTimerRight / gameState->delta;
+		// logic for going up
+		if (gameState->jumpTimerRight <= 0.15 && gameState->jumpTimerRight > 0.0) { // od 0 do 0.1
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+				mainchar->mcY -= JUMP_SPEED * 3;
+			}
+			else {
+				mainchar->mcY -= JUMP_SPEED;
+			}
+			mainchar->mcX += JUMP_SPEED;
+		}
+		if (gameState->jumpTimerRight <= 0.3 && gameState->jumpTimerRight > 0.15) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+				mainchar->mcY -= JUMP_SPEED * 3;
+			}
+			else {
+				mainchar->mcY -= JUMP_SPEED;
+			}
+			mainchar->mcX += JUMP_SPEED;
+		}
+		if (gameState->jumpTimerRight <= 0.45 && gameState->jumpTimerRight > 0.3) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+				mainchar->mcY += JUMP_SPEED;
+			}
+			else {
+				mainchar->mcY += JUMP_SPEED;
+			}
+			mainchar->mcX += JUMP_SPEED;
+		}
+		if (gameState->jumpTimerRight <= 0.6 && gameState->jumpTimerRight > 0.45) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+				// nothing
+			}
+			else {
+				mainchar->mcY += JUMP_SPEED;
+			}
+			mainchar->mcX += JUMP_SPEED;
+		}
+		if (gameState->jumpTimerRight <= 0.75 && gameState->jumpTimerRight > 0.6) {
+			if (mainchar->mcY <= 440 && mainchar->mcY > 311) {
+				mainchar->mcY = 425;
+			}
+			if (mainchar->mcY <= 326 && mainchar->mcY > 199) {
+				mainchar->mcY = 311;
+			}
+			if (mainchar->mcY <= 214 && mainchar->mcY > 87) {
+				mainchar->mcY = 199;
+			}
+			if (mainchar->mcY <= 102 && mainchar->mcY > -25) {
+				mainchar->mcY = 87;
+			}
+			gameState->jumpTimerRight = 0.0;
+			mainchar->isJumpingRight = false;
 		}
 	}
 }
@@ -1190,12 +1332,17 @@ int main(int argc, char** argv) {
 	barrel.x = BARREL_SPAWN_X;
 	barrel.y = BARREL_SPAWN_Y;
 	mainchar.isAlive = 1;
+	mainchar.isJumping = 0;
+	mainchar.isJumpingLeft = 0;
+	mainchar.isJumpingRight = 0;
 	gameState.epsilon = SENSITIVITY_RADIUS;
 	gameState.timeSinceLastSpawn = 0.0;
 	gameState.timeTracker = 0.0;
 	gameState.barrelTimeTracker = 0.0;
 	gameState.timerOne = 0.0;
 	gameState.jumpTimer = 0.0;
+	gameState.jumpTimerLeft = 0.0;
+	gameState.jumpTimerRight = 0.0;
 	mainchar.falling = false;
 	for (int i = 0; i < MAX_BARRELS; ++i) {
 		barrels[i].isAlive = false;
@@ -1227,6 +1374,12 @@ int main(int argc, char** argv) {
 		if (mainchar.isJumping == true) {
 			gameState.jumpTimer += gameState.delta;
 		}
+		if (mainchar.isJumpingLeft == true) {
+			gameState.jumpTimerLeft += gameState.delta;
+		}
+		if (mainchar.isJumpingRight == true) {
+			gameState.jumpTimerRight += gameState.delta;
+		}
 
 		instructions.onLadder = 0;
 
@@ -1234,6 +1387,8 @@ int main(int argc, char** argv) {
 		fallingOffPlatform(&mainchar, &gameState);
 
 		jumping(&mainchar, &gameState);
+		jumpingLeft(&mainchar, &gameState);
+		jumpingRight(&mainchar, &gameState);
 
 		//print background
 		printAllVisuals(screen, &colors, &instructions, &element, &mainchar, &gameState, barrels);
