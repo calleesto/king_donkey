@@ -87,7 +87,7 @@ void DrawRectangle(SDL_Surface* screen, int x, int y, int l, int k, Uint32 outli
 void drawLadder(SDL_Surface* screen, int x, int y, int blue);
 void drawPlatform(SDL_Surface* screen, int x, int y, int l, int blue);
 int checkCollisionWithLadder(int charX, int charY, int charWidth, int charHeight, struct Hitbox* ladderHitbox);
-void drawLevelOne(SDL_Surface* screen, int green, int blue, int red);
+void drawLevelOne(SDL_Surface* screen, int green, int blue, int red, int morro, int grey, int light_purple);
 void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element, struct Barrel* barrel);
 void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState, struct Elements* element);
 void SpawnBarrel(struct Barrel* barrel);
@@ -176,6 +176,13 @@ struct Colors {
 	int red; 
 	int green;
 	int blue;
+	int white;
+	int purple;
+	int yellow;
+	int cyan;
+	int morro;
+	int light_purple;
+	int grey;
 	char text[128];
 };
 
@@ -267,21 +274,21 @@ int checkCollisionWithLadder(int charX, int charY, int charWidth, int charHeight
 		);
 }
 
-void drawLevelOne(SDL_Surface* screen, int green, int blue, int red) {
-	DrawRectangle(screen, PLATFORM_TWO_X, GROUND_Y, SCREEN_WIDTH, GROUND_HEIGHT, green, green);
+void drawLevelOne(SDL_Surface* screen, int green, int blue, int red, int morro, int grey, int light_purple) {
+	DrawRectangle(screen, PLATFORM_TWO_X, GROUND_Y, SCREEN_WIDTH, GROUND_HEIGHT, morro, morro);
 
-	drawPlatform(screen, PLATFORM_ONE_X, PLATFORM_ROW_ONE_Y, PLATFORM_LENGHT, blue);
-	drawPlatform(screen, PLATFORM_TWO_X, PLATFORM_ROW_TWO_Y, PLATFORM_LENGHT, blue);
-	drawPlatform(screen, PLATFORM_ONE_X, PLATFORM_ROW_THREE_Y, PLATFORM_LENGHT, blue);
+	drawPlatform(screen, PLATFORM_ONE_X, PLATFORM_ROW_ONE_Y, PLATFORM_LENGHT, morro);
+	drawPlatform(screen, PLATFORM_TWO_X, PLATFORM_ROW_TWO_Y, PLATFORM_LENGHT, morro);
+	drawPlatform(screen, PLATFORM_ONE_X, PLATFORM_ROW_THREE_Y, PLATFORM_LENGHT, morro);
 
-	drawLadder(screen, LADDER_COLUMN_ONE_X, LADDER_ROW_ONE_Y, red);
-	drawLadder(screen, LADDER_COLUMN_THREE_X, LADDER_ROW_ONE_Y, red);
+	drawLadder(screen, LADDER_COLUMN_ONE_X, LADDER_ROW_ONE_Y, grey);
+	drawLadder(screen, LADDER_COLUMN_THREE_X, LADDER_ROW_ONE_Y, grey);
 
-	drawLadder(screen, LADDER_COLUMN_FOUR_X, LADDER_ROW_TWO_Y, red);
-	drawLadder(screen, LADDER_COLUMN_TWO_X, LADDER_ROW_TWO_Y, red);
+	drawLadder(screen, LADDER_COLUMN_FOUR_X, LADDER_ROW_TWO_Y, grey);
+	drawLadder(screen, LADDER_COLUMN_TWO_X, LADDER_ROW_TWO_Y, grey);
 
-	drawLadder(screen, LADDER_COLUMN_ONE_X, LADDER_ROW_THREE_Y, red);
-	drawLadder(screen, LADDER_COLUMN_THREE_X, LADDER_ROW_THREE_Y, red);
+	drawLadder(screen, LADDER_COLUMN_ONE_X, LADDER_ROW_THREE_Y, grey);
+	drawLadder(screen, LADDER_COLUMN_THREE_X, LADDER_ROW_THREE_Y, grey);
 }
 
 void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element, struct Barrel* barrel) {
@@ -871,15 +878,22 @@ int initializeSDL(struct Player* mainchar, struct Elements* element, struct Colo
 	
 	//initialize colors for map
 	colors->black = SDL_MapRGB((*screen)->format, 0x00, 0x00, 0x00);
+	colors->white = SDL_MapRGB((*screen)->format, 0xFF, 0xFF, 0xFF);
 	colors->green = SDL_MapRGB((*screen)->format, 0x00, 0xFF, 0x00);
 	colors->red = SDL_MapRGB((*screen)->format, 0xFF, 0x00, 0x00);
 	colors->blue = SDL_MapRGB((*screen)->format, 0x11, 0x11, 0xCC);
+	colors->purple = SDL_MapRGB((*screen)->format, 0x77, 0x11, 0xCC);
+	colors->yellow = SDL_MapRGB((*screen)->format, 0xFF, 0xFF, 0x00);
+	colors->cyan = SDL_MapRGB((*screen)->format, 0x00, 0xFF, 0xFF);
+	colors->light_purple = SDL_MapRGB((*screen)->format, 0xB4, 0xAC, 0xFF);
+	colors->morro = SDL_MapRGB((*screen)->format, 0x33, 0x33, 0x00);
+	colors->grey = SDL_MapRGB((*screen)->format, 0x55, 0x55, 0x55);
 }
 
 void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct KeyboardInstructions* instructions, struct Elements* element, struct Player* mainchar, struct GameState* gameState, struct Barrel barrels[MAX_BARRELS]) {
 	SDL_FillRect(screen, NULL, colors->black);
 
-	drawLevelOne(screen, colors->green, colors->blue, colors->red);
+	drawLevelOne(screen, colors->green, colors->blue, colors->red, colors->morro, colors->grey, colors->light_purple);
 
 	gameState->fpsTimer += gameState->delta;
 	if (gameState->fpsTimer > 0.5) {
@@ -888,12 +902,12 @@ void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct Keyboard
 		gameState->fpsTimer -= 0.5;
 	};
 
-	DrawLine(screen, 0, 0, SCREEN_WIDTH, 1, 0, colors->green);
-	DrawLine(screen, 0, 0, SCREEN_HEIGHT, 0, 1, colors->green);
-	DrawLine(screen, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT, 0, 1, colors->green);
-	DrawLine(screen, 0, SCREEN_HEIGHT - 1, SCREEN_WIDTH, 1, 0, colors->green);
+	DrawLine(screen, 0, 0, SCREEN_WIDTH, 1, 0, colors->grey);
+	DrawLine(screen, 0, 0, SCREEN_HEIGHT, 0, 1, colors->grey);
+	DrawLine(screen, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT, 0, 1, colors->grey);
+	DrawLine(screen, 0, SCREEN_HEIGHT - 1, SCREEN_WIDTH, 1, 0, colors->grey);
 
-	DrawRectangle(screen, 3, 3, SCREEN_WIDTH - 6, 51, colors->black, colors->red);
+	DrawRectangle(screen, 3, 3, SCREEN_WIDTH - 6, 51, colors->black, colors->grey);
 	
 	sprintf(colors->text, "RUNNING TIME = %.1lf s  %.0lf frames / s", instructions->worldTime, gameState->fps);
 	DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 10, colors->text, element->charset);
