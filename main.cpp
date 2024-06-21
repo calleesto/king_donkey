@@ -29,14 +29,20 @@ extern "C" {
 #define LADDER_CLIMB_SPEED		200.0 // higher = slower
 #define LADDER_SLIDE_SPEED		200.0 // higher = slower
 
+
+//IMPORTANTE SETTINGS!!!!!!!!!!!
+
 #define ANIMATION_SPEED			0.2 // higher = slower
 #define BARREL_ANIMATION_SPEED	0.2
 #define MC_SPEED				0.6 // higher = faster
-#define BARREL_SPEED			150
+#define BARREL_SPEED			250
 #define MC_FALLING_SPEED		100
-#define JUMP_SPEED				0.32
+#define JUMP_SPEED				0.3
+#define SENSITIVITY_RADIUS		20
 #define JUMP_PEAK				60
 #define JUMP_TIME				0.5
+#define BARREL_SPAWN_INTERVAL	3
+
 
 
 
@@ -66,8 +72,8 @@ extern "C" {
 #define ANTAGONIST_SPAWN_X		SCREEN_WIDTH - 100
 #define ANTAGONIST_SPAWN_Y		PLATFORM_ROW_THREE_Y - BARREL_HEIGHT
 
-#define SENSITIVITY_RADIUS		40
-#define BARREL_SPAWN_INTERVAL	2.2
+
+
 #define MAX_BARRELS				1000
 #define JUMP_VELOCITY			-40
 #define GRAVITY					9.8
@@ -122,7 +128,7 @@ struct Hitbox {
 
 struct Barrel {
 	double x;
-	int y;
+	double y;
 	bool isAlive;
 };
 
@@ -382,6 +388,7 @@ void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardIns
 }
 
 void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element) {
+	//HORIZONTAL LEFT 3RD PLATFORM
 	if (barrel->y == BARREL_SPAWN_Y) {
 		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
 			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
@@ -399,6 +406,46 @@ void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct Gam
 			gameState->barrelTimeTracker = 0;
 		}
 	}
+	
+	//3RD PLATFORM BUMP LEFT 
+	if (barrel->x < 50 && barrel->y <= (PLATFORM_ROW_THREE_Y / 2) + BARREL_SPAWN_Y) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
+	}
+
+	//3RD PLATFORM BUMP RIGHT TO 2ND PLATFORM
+	if (barrel->x < 50 && barrel->y <= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y >= (PLATFORM_ROW_THREE_Y / 2) + BARREL_SPAWN_Y) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
+	}
+
+	//2ND PLATFORM HORIZONTAL RIGHT
 	if (barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
 		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
 			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
@@ -416,6 +463,58 @@ void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct Gam
 			gameState->barrelTimeTracker = 0;
 		}
 	}
+
+
+
+
+
+	// 2ND PLATFORM BUMP RIGHT
+	if (barrel->x > BARREL_SPAWN_X + 2 && barrel->y <= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
+	}
+
+	//2ND PLATFORM BUMP LEFT TO 1ST PLATFORM
+	if (barrel->x >= BARREL_SPAWN_X + 2 && barrel->y > (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+		}
+		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+			gameState->barrelTimeTracker = 0;
+		}
+	}
+
+
+
+
+
+
+
+
+
+	// 1ST PLATFORM HORIZONTAL LEFT
 	if (barrel->y == 321) {
 		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
 			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
@@ -433,6 +532,8 @@ void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct Gam
 			gameState->barrelTimeTracker = 0;
 		}
 	}
+
+	//GROUND HORIZONTAL RIGHT
 	if (barrel->y == 433) {
 		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
 			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
@@ -454,39 +555,97 @@ void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct Gam
 
 //set path for the barrels and if statement for contact with main character
 void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState, struct Elements* element) {
-
+	//PLATFORM 3 HORIZONTAL MOVEMENT
 	if (barrel->x >= 50 && barrel->y == BARREL_SPAWN_Y) {
 		barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
+
 	}
 
-	if (barrel->x < 50 && barrel->y == BARREL_SPAWN_Y) {
-		barrel->y += PLATFORM_ROW_THREE_Y;
+	//PLATFORM 3 DROP TO PLATFROM 2
+	if (barrel->x < 50) {
+		if (barrel->y <= (PLATFORM_ROW_THREE_Y/2) + BARREL_SPAWN_Y) {
+			barrel->x -= (BARREL_SPEED * gameState->delta);
+			barrel->y += (BARREL_SPEED * gameState->delta);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+		}
+		else if (barrel->y < PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y >= (PLATFORM_ROW_THREE_Y / 2) + BARREL_SPAWN_Y) {
+			barrel->x += (BARREL_SPEED * gameState->delta);
+			barrel->y += (BARREL_SPEED * gameState->delta);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+		}
+		else if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+			barrel->y = PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y;
+		}
+
 	}
 
+	//PLATFORM 2 HORIZONTAL MOVEMENT
 	if (barrel->x <= BARREL_SPAWN_X && barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
 		barrel->x += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
-	if (barrel->x > BARREL_SPAWN_X && barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
-		barrel->y += PLATFORM_ROW_THREE_Y;
+
+
+
+
+
+
+
+
+
+
+
+
+	//PLATFORM 2 DROP TO PLATFROM 1
+	if (barrel->x >= BARREL_SPAWN_X + 2) {
+		if (barrel->y <= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+			barrel->x += (BARREL_SPEED * gameState->delta);
+			barrel->y += (BARREL_SPEED * gameState->delta);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+		}
+		else if (barrel->y >= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+			barrel->x -= (BARREL_SPEED * gameState->delta);
+			barrel->y += (BARREL_SPEED * gameState->delta);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+		}
+		else if (barrel->y >= (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+			barrel->y = 2 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y;
+		}
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+	//PLATFORM 1 HORIZONTAL MOVEMENT
 	if (barrel->x >= 50 && barrel->y == 321) {
 		barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
+	//PLATFORM 1 DROP TO GROUND
 	if (barrel->x < 50 && barrel->y == 321) {
 		barrel->y += PLATFORM_ROW_THREE_Y;
 	}
 
-	if (barrel->x <= BARREL_SPAWN_X && barrel->y == 433) {
+	//GROUND HORIZONTAL MOVEMENT
+	if (barrel->x <= SCREEN_WIDTH && barrel->y == 433) {
 		barrel->x += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
-	if (barrel->x >= BARREL_SPAWN_X && barrel->y == 433) {
+
+	//DESPAWN BARREL
+	if (barrel->x >= SCREEN_WIDTH && barrel->y == 433) {
 		barrel->isAlive = false;
 	}
 }
@@ -926,7 +1085,7 @@ void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct Keyboard
 	//DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
 	
 	
-	sprintf(colors->text, "barrelY %d", barrels[0].y);
+	sprintf(colors->text, "barrelX %f, barrelY %f", barrels[0].x, barrels[0].y);
 	DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
 
 	
@@ -1146,12 +1305,39 @@ void updateCharacterMovement(struct Hitbox ladders[6], SDL_Surface* screen, stru
 		mainchar->isJumpingLeft = true;
 	}
 
-	// jumping diagonally left
+	// jumping diagonally right
 	if (instructions->keys[SDL_SCANCODE_SPACE] && instructions->keys[SDL_SCANCODE_D] && mainchar->isAlive == 1) {
 		mainchar->isJumpingRight = true;
 	}
+
+	if (mainchar->isJumpingLeft) {
+		mainchar->isJumpingRight = false;
+	}
+	if (mainchar->isJumpingRight) {
+		mainchar->isJumpingLeft = false;
+	}
+
+	if (instructions->keys[SDL_SCANCODE_SPACE] && instructions->keys[SDL_SCANCODE_D] && instructions->keys[SDL_SCANCODE_A] && mainchar->isAlive == 1) {
+		if (mainchar->mcY <= (425 + 10) && mainchar->mcY > (311 + 10)) {
+			mainchar->mcY = 425;
+		}
+		if (mainchar->mcY <= (311 + 10) && mainchar->mcY > (199 + 10)) {
+			mainchar->mcY = 311;
+		}
+		if (mainchar->mcY <= (199 + 10) && mainchar->mcY > (87 + 10)) {
+			mainchar->mcY = 199;
+		}
+		if (mainchar->mcY <= (87 + 10) && mainchar->mcY > (-27 + 10)) {
+			mainchar->mcY = 87;
+		}
+		gameState->jumpTimerLeft = 0.0;
+		gameState->jumpTimerRight = 0.0;
+		mainchar->isJumpingRight = false;
+		mainchar->isJumpingLeft = false;
+	}
 }
 
+/*
 void jumping(struct Player* mainchar, struct GameState* gameState) {
 	if (mainchar->isJumping == true) {
 		//int count = gameState->jumpTimer / gameState->delta;
@@ -1188,9 +1374,11 @@ void jumping(struct Player* mainchar, struct GameState* gameState) {
 		}
 	}
 }
+*/
 
 void jumpingLeft(struct Player* mainchar, struct GameState* gameState) {
-	if (mainchar->isJumpingLeft == true) {
+	// JUMPING LEFT INSIDE BORDER
+	if (mainchar->isJumpingLeft == true && mainchar->mcX - (MC_WIDTH / 2) > 0) {
 		//int count = gameState->jumpTimerLeft / gameState->delta;
 		// logic for going up
 		if (gameState->jumpTimerLeft <= 0.15 && gameState->jumpTimerLeft > 0.0) { // od 0 do 0.1
@@ -1218,7 +1406,7 @@ void jumpingLeft(struct Player* mainchar, struct GameState* gameState) {
 			else {
 				mainchar->mcY += JUMP_SPEED;
 			}
-			mainchar->mcX -= JUMP_SPEED;
+			mainchar->mcX -= JUMP_SPEED * 2;
 		}
 		if (gameState->jumpTimerLeft <= 0.6 && gameState->jumpTimerLeft > 0.45) {
 			if (mainchar->mcX >= SCREEN_WIDTH - PLATFORM_ONE_X && mainchar->mcX < SCREEN_WIDTH && mainchar->mcY <= 311 && mainchar->mcY > 87) {
@@ -1227,19 +1415,44 @@ void jumpingLeft(struct Player* mainchar, struct GameState* gameState) {
 			else {
 				mainchar->mcY += JUMP_SPEED;
 			}
-			mainchar->mcX -= JUMP_SPEED;
+			mainchar->mcX -= JUMP_SPEED * 2;
 		}
-		if (gameState->jumpTimerLeft <= 0.75 && gameState->jumpTimerLeft > 0.6) {
-			if (mainchar->mcY <= 440 && mainchar->mcY > 311) {
+		if (gameState->jumpTimerLeft > 0.6) {
+			if (mainchar->mcY <= (425 + 10) && mainchar->mcY > (311 + 10)) {
 				mainchar->mcY = 425;
 			}
-			if (mainchar->mcY <= 326 && mainchar->mcY > 199) {
+			if (mainchar->mcY <= (311 + 10) && mainchar->mcY > (199 + 10)) {
 				mainchar->mcY = 311;
 			}
-			if (mainchar->mcY <= 214 && mainchar->mcY > 87) {
+			if (mainchar->mcY <= (199 + 10) && mainchar->mcY > (87 + 10)) {
 				mainchar->mcY = 199;
 			}
-			if (mainchar->mcY <= 102 && mainchar->mcY > -25) {
+			if (mainchar->mcY <= (87 + 10) && mainchar->mcY > (-27 + 10)) {
+				mainchar->mcY = 87;
+			}
+			gameState->jumpTimerLeft = 0.0;
+			mainchar->isJumpingLeft = false;
+		}
+	}
+	// JUMPING LEFT OUTSIDE BORDER
+	else if (mainchar->isJumpingLeft == true && mainchar->mcX - (MC_WIDTH / 2) - JUMP_SPEED < 0) {
+		if (gameState->jumpTimerLeft <= 0.45 && gameState->jumpTimerLeft > 0.3 && mainchar->mcY < 425 - JUMP_SPEED / 2 && mainchar->mcY > 311 || mainchar->mcY < 311 - JUMP_SPEED / 2 && mainchar->mcY > 199 || mainchar->mcY < 199 - JUMP_SPEED / 2 && mainchar->mcY > 87 || mainchar->mcY < 87 - JUMP_SPEED / 2 && mainchar->mcY > -27) {
+			mainchar->mcY += JUMP_SPEED / 2;
+		}
+		if (gameState->jumpTimerLeft <= 0.6 && gameState->jumpTimerLeft > 0.45 && mainchar->mcY < 425 - JUMP_SPEED / 2 && mainchar->mcY > 311 || mainchar->mcY < 311 - JUMP_SPEED / 2 && mainchar->mcY > 199 || mainchar->mcY < 199 - JUMP_SPEED / 2 && mainchar->mcY > 87 || mainchar->mcY < 87 - JUMP_SPEED / 2 && mainchar->mcY > -27) {
+			mainchar->mcY += JUMP_SPEED / 2;
+		}
+		if (gameState->jumpTimerLeft > 0.6) {
+			if (mainchar->mcY <= (425 + 10) && mainchar->mcY > (311 + 10)) {
+				mainchar->mcY = 425;
+			}
+			if (mainchar->mcY <= (311 + 10) && mainchar->mcY > (199 + 10)) {
+				mainchar->mcY = 311;
+			}
+			if (mainchar->mcY <= (199 + 10) && mainchar->mcY > (87 + 10)) {
+				mainchar->mcY = 199;
+			}
+			if (mainchar->mcY <= (87 + 10) && mainchar->mcY > (-27 + 10)) {
 				mainchar->mcY = 87;
 			}
 			gameState->jumpTimerLeft = 0.0;
@@ -1249,11 +1462,11 @@ void jumpingLeft(struct Player* mainchar, struct GameState* gameState) {
 }
 
 void jumpingRight(struct Player* mainchar, struct GameState* gameState) {
-	if (mainchar->isJumpingRight == true) {
-		//int count = gameState->jumpTimerRight / gameState->delta;
-		// logic for going up
-		if (gameState->jumpTimerRight <= 0.15 && gameState->jumpTimerRight > 0.0) { // od 0 do 0.1
-			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+	// JUMPING RIGHT INSIDE BORDER
+	if (mainchar->isJumpingRight == true && mainchar->mcX < SCREEN_WIDTH - (MC_WIDTH / 2)) {
+		//GOING UP
+		if (gameState->jumpTimerRight <= 0.15 && gameState->jumpTimerRight > 0.0) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25 && mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X) {
 				mainchar->mcY -= JUMP_SPEED * 3;
 			}
 			else {
@@ -1262,7 +1475,7 @@ void jumpingRight(struct Player* mainchar, struct GameState* gameState) {
 			mainchar->mcX += JUMP_SPEED;
 		}
 		if (gameState->jumpTimerRight <= 0.3 && gameState->jumpTimerRight > 0.15) {
-			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25 && mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X) {
 				mainchar->mcY -= JUMP_SPEED * 3;
 			}
 			else {
@@ -1270,35 +1483,68 @@ void jumpingRight(struct Player* mainchar, struct GameState* gameState) {
 			}
 			mainchar->mcX += JUMP_SPEED;
 		}
+
+		//GOING DOWN
 		if (gameState->jumpTimerRight <= 0.45 && gameState->jumpTimerRight > 0.3) {
-			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25 && mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X) {
 				mainchar->mcY += JUMP_SPEED;
 			}
 			else {
 				mainchar->mcY += JUMP_SPEED;
 			}
-			mainchar->mcX += JUMP_SPEED;
+			mainchar->mcX += JUMP_SPEED * 2;
 		}
 		if (gameState->jumpTimerRight <= 0.6 && gameState->jumpTimerRight > 0.45) {
-			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25) {
+			if (mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X && mainchar->mcY <= 425 && mainchar->mcY > 199 || mainchar->mcY <= 199 && mainchar->mcY > -25 && mainchar->mcX >= 0 && mainchar->mcX < PLATFORM_ONE_X) {
 				// nothing
 			}
 			else {
 				mainchar->mcY += JUMP_SPEED;
 			}
-			mainchar->mcX += JUMP_SPEED;
+			mainchar->mcX += JUMP_SPEED * 2;
 		}
-		if (gameState->jumpTimerRight <= 0.75 && gameState->jumpTimerRight > 0.6) {
-			if (mainchar->mcY <= 440 && mainchar->mcY > 311) {
+
+		// RESET ON GROUND
+		if (gameState->jumpTimerRight > 0.6) {
+			if (mainchar->mcY <= (425 + 10) && mainchar->mcY > (311 + 10)) {
 				mainchar->mcY = 425;
 			}
-			if (mainchar->mcY <= 326 && mainchar->mcY > 199) {
+			if (mainchar->mcY <= (311 + 10) && mainchar->mcY > (199 + 10)) {
 				mainchar->mcY = 311;
 			}
-			if (mainchar->mcY <= 214 && mainchar->mcY > 87) {
+			if (mainchar->mcY <= (199 + 10) && mainchar->mcY > (87 + 10)) {
 				mainchar->mcY = 199;
 			}
-			if (mainchar->mcY <= 102 && mainchar->mcY > -25) {
+			if (mainchar->mcY <= (87 + 10) && mainchar->mcY > (-27 + 10)) {
+				mainchar->mcY = 87;
+			}
+			gameState->jumpTimerRight = 0.0;
+			mainchar->isJumpingRight = false;
+		}
+	}
+
+	// JUMPING RIGHT OUTSIDE BORDER
+	else if (mainchar->isJumpingRight == true && mainchar->mcX + JUMP_SPEED > SCREEN_WIDTH - (MC_WIDTH / 2)) {
+		// SLIDE DOWN WALL
+		if (gameState->jumpTimerRight <= 0.45 && gameState->jumpTimerRight > 0.3 && mainchar->mcY < 425 - JUMP_SPEED / 2 && mainchar->mcY > 311 || mainchar->mcY < 311 - JUMP_SPEED / 2 && mainchar->mcY > 199 || mainchar->mcY < 199 - JUMP_SPEED / 2 && mainchar->mcY > 87 || mainchar->mcY < 87 - JUMP_SPEED / 2 && mainchar->mcY > -27) {
+			mainchar->mcY += JUMP_SPEED / 2;
+		}
+		if (gameState->jumpTimerRight <= 0.6 && gameState->jumpTimerRight > 0.45 && mainchar->mcY < 425 - JUMP_SPEED / 2 && mainchar->mcY > 311 || mainchar->mcY < 311 - JUMP_SPEED / 2 && mainchar->mcY > 199 || mainchar->mcY < 199 - JUMP_SPEED / 2 && mainchar->mcY > 87 || mainchar->mcY < 87 - JUMP_SPEED / 2 && mainchar->mcY > -27) {
+			mainchar->mcY += JUMP_SPEED / 2;
+		}
+
+		// RESET ON GROUND 
+		if (gameState->jumpTimerRight > 0.6) {
+			if (mainchar->mcY <= (425 + 10) && mainchar->mcY > (311 + 10)) {
+				mainchar->mcY = 425;
+			}
+			if (mainchar->mcY <= (311 + 10) && mainchar->mcY > (199 + 10)) {
+				mainchar->mcY = 311;
+			}
+			if (mainchar->mcY <= (199 + 10) && mainchar->mcY > (87 + 10)) {
+				mainchar->mcY = 199;
+			}
+			if (mainchar->mcY <= (87 + 10) && mainchar->mcY > (-27 + 10)) {
 				mainchar->mcY = 87;
 			}
 			gameState->jumpTimerRight = 0.0;
@@ -1400,7 +1646,7 @@ int main(int argc, char** argv) {
 		// logic for when mc falls off the edge of a platform
 		fallingOffPlatform(&mainchar, &gameState);
 
-		jumping(&mainchar, &gameState);
+		//jumping(&mainchar, &gameState);
 		jumpingLeft(&mainchar, &gameState);
 		jumpingRight(&mainchar, &gameState);
 
