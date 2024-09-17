@@ -66,7 +66,7 @@ extern "C" {
 #define BARREL_WIDTH			30
 #define BARREL_HEIGHT			30
 
-#define BARREL_SPAWN_X			SCREEN_WIDTH - 100
+#define BARREL_SPAWN_X			SCREEN_WIDTH
 #define BARREL_SPAWN_Y			97
 
 #define ANTAGONIST_SPAWN_X		SCREEN_WIDTH - 100
@@ -94,6 +94,8 @@ void drawLadder(SDL_Surface* screen, int x, int y, int blue);
 void drawPlatform(SDL_Surface* screen, int x, int y, int l, int blue);
 int checkCollisionWithLadder(int charX, int charY, int charWidth, int charHeight, struct Hitbox* ladderHitbox);
 void drawLevelOne(SDL_Surface* screen, int green, int blue, int red, int morro, int grey, int light_purple);
+void barrelSpinLeft(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element);
+void barrelSpinRight(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element);
 void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardInstructions* instructions, struct GameState* gameState, struct Elements* element, struct Barrel* barrel);
 void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* screen, SDL_Surface* barrelbmp, struct GameState* gameState, struct Elements* element);
 void SpawnBarrel(struct Barrel* barrel);
@@ -387,169 +389,90 @@ void animations(SDL_Surface* screen, struct Player* mainchar, struct KeyboardIns
 	}
 }
 
+void barrelSpinLeft(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element) {
+	if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+		DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+		DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+		DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+		DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+		gameState->barrelTimeTracker = 0;
+	}
+}
+
+void barrelSpinRight(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element) {
+	if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
+		DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
+		DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
+		DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
+		DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
+	}
+	if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
+		gameState->barrelTimeTracker = 0;
+	}
+}
+
 void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct GameState* gameState, SDL_Surface* screen, struct Elements* element) {
 	//HORIZONTAL LEFT 3RD PLATFORM
 	if (barrel->y == BARREL_SPAWN_Y) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+		barrelSpinLeft(barrel, mainchar, gameState, screen, element);
 	}
 	
 	//3RD PLATFORM BUMP LEFT 
 	if (barrel->x < 50 && barrel->y <= (PLATFORM_ROW_THREE_Y / 2) + BARREL_SPAWN_Y) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+		barrelSpinLeft(barrel, mainchar, gameState, screen, element);
 	}
 
 	//3RD PLATFORM BUMP RIGHT TO 2ND PLATFORM
 	if (barrel->x < 50 && barrel->y <= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y >= (PLATFORM_ROW_THREE_Y / 2) + BARREL_SPAWN_Y) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+		barrelSpinRight(barrel, mainchar, gameState, screen, element);
 	}
 
 	//2ND PLATFORM HORIZONTAL RIGHT
 	if (barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+		barrelSpinRight(barrel, mainchar, gameState, screen, element);
 	}
 
-
-
-
-
 	// 2ND PLATFORM BUMP RIGHT
-	if (barrel->x > BARREL_SPAWN_X + 2 && barrel->y <= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+	if (barrel->x > BARREL_SPAWN_X - 100 && barrel->y <= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+		barrelSpinRight(barrel, mainchar, gameState, screen, element);
 	}
 
 	//2ND PLATFORM BUMP LEFT TO 1ST PLATFORM
-	if (barrel->x >= BARREL_SPAWN_X + 2 && barrel->y > (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+	if (barrel->x >= BARREL_SPAWN_X - 100 && barrel->y > (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		barrelSpinLeft(barrel, mainchar, gameState, screen, element);
 	}
 
-
-
-
-
-
-
-
-
 	// 1ST PLATFORM HORIZONTAL LEFT
-	if (barrel->y == 321) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+	if (barrel->y == (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		barrelSpinLeft(barrel, mainchar, gameState, screen, element);
+	}
+	// 1ND PLATFORM BUMP RIGHT
+	if (barrel->x < 50 && barrel->y <= (5 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y >= 2 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+		barrelSpinRight(barrel, mainchar, gameState, screen, element);
+	}
+
+	//1ND PLATFORM BUMP LEFT TO 1ST PLATFORM
+	if (barrel->x < 50 && barrel->y > (5 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		barrelSpinLeft(barrel, mainchar, gameState, screen, element);
 	}
 
 	//GROUND HORIZONTAL RIGHT
-	if (barrel->y == 433) {
-		if (gameState->barrelTimeTracker < BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker >= 0) {
-			DrawSurface(screen, element->barrel1, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 2 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel2, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker > 2 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 3 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel3, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 3 * BARREL_ANIMATION_SPEED && gameState->barrelTimeTracker <= 4 * BARREL_ANIMATION_SPEED) {
-			DrawSurface(screen, element->barrel4, barrel->x, barrel->y);
-		}
-		if (gameState->barrelTimeTracker >= 4 * BARREL_ANIMATION_SPEED) {
-			gameState->barrelTimeTracker = 0;
-		}
+	if (barrel->y == (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		barrelSpinRight(barrel, mainchar, gameState, screen, element);
 	}
 }
 
@@ -577,75 +500,64 @@ void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* s
 		else if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
 			barrel->y = PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y;
 		}
-
 	}
 
 	//PLATFORM 2 HORIZONTAL MOVEMENT
-	if (barrel->x <= BARREL_SPAWN_X && barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+	if (barrel->x <= BARREL_SPAWN_X - 100 && barrel->y == PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+		//barrel->x = 550;
 		barrel->x += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
 	//PLATFORM 2 DROP TO PLATFROM 1
-	if (barrel->x >= BARREL_SPAWN_X + 2) {
-		if (barrel->y <= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+	if (barrel->x > BARREL_SPAWN_X - 100) {
+		if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y < (PLATFORM_ROW_THREE_Y / 2 * 3) + BARREL_SPAWN_Y) {
 			barrel->x += (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y >= (3 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		else if (barrel->y >= (PLATFORM_ROW_THREE_Y / 2 * 3) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
 			barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y >= (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
-			barrel->y = 2 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y;
+		else if (barrel->y >= (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y - 10) {
+			barrel->y = (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 	//PLATFORM 1 HORIZONTAL MOVEMENT
-	if (barrel->x >= 50 && barrel->y == 321) {
+	if (barrel->x >= 50 && barrel->y == (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
 		barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
 	//PLATFORM 1 DROP TO GROUND
-	if (barrel->x < 50 && barrel->y == 321) {
-		barrel->y += PLATFORM_ROW_THREE_Y;
+	if (barrel->x < 50) {
+		if (barrel->y < (PLATFORM_ROW_THREE_Y / 2 * 5) + BARREL_SPAWN_Y && barrel->y >= 2 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+			barrel->x -= (BARREL_SPEED * gameState->delta);
+			barrel->y += (BARREL_SPEED * gameState->delta);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+		}
+		else if (barrel->y < 3 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y >= (PLATFORM_ROW_THREE_Y / 2 * 5) + BARREL_SPAWN_Y) {
+			barrel->x += (BARREL_SPEED * gameState->delta);
+			barrel->y += (BARREL_SPEED * gameState->delta);
+			barrelAnimations(barrel, mainchar, gameState, screen, element);
+		}
+		else if (barrel->y >= 3 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+			barrel->y = (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y;
+		}
+
 	}
 
 	//GROUND HORIZONTAL MOVEMENT
-	if (barrel->x <= SCREEN_WIDTH && barrel->y == 433) {
+	if (barrel->x <= SCREEN_WIDTH && barrel->y == (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
 		barrel->x += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
 	//DESPAWN BARREL
-	if (barrel->x >= SCREEN_WIDTH && barrel->y == 433) {
+	if (barrel->x >= SCREEN_WIDTH && barrel->y == (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
 		barrel->isAlive = false;
 	}
 }
@@ -672,8 +584,6 @@ if (fabs(barrels[i].x - mainchar->mcX) <= gameState->epsilon && fabs(barrels[i].
 			}
 		}
 	}
-
-
 }
 
 void SpawnBarrel(struct Barrel* barrel) {
