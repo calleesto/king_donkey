@@ -35,7 +35,7 @@ extern "C" {
 #define ANIMATION_SPEED			0.2 // higher = slower
 #define BARREL_ANIMATION_SPEED	0.2
 #define MC_SPEED				0.6 // higher = faster
-#define BARREL_SPEED			250
+#define BARREL_SPEED			500
 #define MC_FALLING_SPEED		100
 #define JUMP_SPEED				0.3
 #define SENSITIVITY_RADIUS		20
@@ -466,12 +466,12 @@ void barrelAnimations(struct Barrel* barrel, struct Player* mainchar, struct Gam
 	}
 
 	//1ND PLATFORM BUMP LEFT TO 1ST PLATFORM
-	if (barrel->x < 50 && barrel->y > (5 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+	if (barrel->x < 50 && barrel->y > (5 / 2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y && barrel->y < 434) {
 		barrelSpinLeft(barrel, mainchar, gameState, screen, element);
 	}
 
 	//GROUND HORIZONTAL RIGHT
-	if (barrel->y == (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+	if (barrel->y == 434) {
 		barrelSpinRight(barrel, mainchar, gameState, screen, element);
 	}
 }
@@ -486,7 +486,7 @@ void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* s
 	}
 
 	//PLATFORM 3 DROP TO PLATFROM 2
-	if (barrel->x < 50) {
+	if (barrel->x < 50 && barrel->y <= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
 		if (barrel->y <= (PLATFORM_ROW_THREE_Y/2) + BARREL_SPAWN_Y) {
 			barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
@@ -497,7 +497,7 @@ void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* s
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+		else if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y <= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y  + 50) {
 			barrel->y = PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y;
 		}
 	}
@@ -511,53 +511,52 @@ void UpdateBarrel(struct Barrel* barrel, struct Player* mainchar, SDL_Surface* s
 
 	//PLATFORM 2 DROP TO PLATFROM 1
 	if (barrel->x > BARREL_SPAWN_X - 100) {
-		if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y < (PLATFORM_ROW_THREE_Y / 2 * 3) + BARREL_SPAWN_Y) {
+		if (barrel->y >= PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y < (PLATFORM_ROW_THREE_Y / 2 * 3) + BARREL_SPAWN_Y + 5) {
 			barrel->x += (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y >= (PLATFORM_ROW_THREE_Y / 2 * 3) + BARREL_SPAWN_Y && barrel->y < (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+		else if (barrel->y >= (PLATFORM_ROW_THREE_Y / 2 * 3) + BARREL_SPAWN_Y + 5 && barrel->y < 322) {
 			barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y >= (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y - 10) {
-			barrel->y = (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y;
+		else if (barrel->y >= 322 && barrel->y <= 400) {
+			barrel->y = 322;
 		}
 	}
 	
 	//PLATFORM 1 HORIZONTAL MOVEMENT
-	if (barrel->x >= 50 && barrel->y == (2 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+	if (barrel->x >= 50 && barrel->y == 322) {
 		barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
 	//PLATFORM 1 DROP TO GROUND
-	if (barrel->x < 50) {
-		if (barrel->y < (PLATFORM_ROW_THREE_Y / 2 * 5) + BARREL_SPAWN_Y && barrel->y >= 2 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+	if (barrel->x < 50 && barrel->y > PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
+		if (barrel->y < (PLATFORM_ROW_THREE_Y / 2 * 5) + 5 + BARREL_SPAWN_Y && barrel->y >= 322){
 			barrel->x -= (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y < 3 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y && barrel->y >= (PLATFORM_ROW_THREE_Y / 2 * 5) + BARREL_SPAWN_Y) {
+		else if (barrel->y < 434 && barrel->y >= (PLATFORM_ROW_THREE_Y / 2 * 5) + BARREL_SPAWN_Y + 5) {
 			barrel->x += (BARREL_SPEED * gameState->delta);
 			barrel->y += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 		}
-		else if (barrel->y >= 3 * PLATFORM_ROW_THREE_Y + BARREL_SPAWN_Y) {
-			barrel->y = (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y;
+		else if (barrel->y >= 434 && barrel->y <= 500) {
+			barrel->y = 434;
 		}
-
 	}
 
 	//GROUND HORIZONTAL MOVEMENT
-	if (barrel->x <= SCREEN_WIDTH && barrel->y == (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+	if (barrel->x <= SCREEN_WIDTH && barrel->y == 434) {
 		barrel->x += (BARREL_SPEED * gameState->delta);
 			barrelAnimations(barrel, mainchar, gameState, screen, element);
 	}
 
 	//DESPAWN BARREL
-	if (barrel->x >= SCREEN_WIDTH && barrel->y == (3 * PLATFORM_ROW_THREE_Y) + BARREL_SPAWN_Y) {
+	if (barrel->x > SCREEN_WIDTH && barrel->y == 434) {
 		barrel->isAlive = false;
 	}
 }
@@ -995,7 +994,7 @@ void printAllVisuals(SDL_Surface* screen, struct Colors* colors, struct Keyboard
 	//DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
 	
 	
-	sprintf(colors->text, "barrelX %f, barrelY %f", barrels[0].x, barrels[0].y);
+	sprintf(colors->text, "barrelX %f, barrelY %f isAlive %d", barrels[0].x, barrels[0].y, barrels[0].isAlive);
 	DrawString(screen, screen->w / 2 - strlen(colors->text) * 8 / 2, 42, colors->text, element->charset);
 
 	
