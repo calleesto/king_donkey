@@ -1,35 +1,37 @@
 ﻿  main.cpp
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(269,44): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(366,68): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(366,53): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(394,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(394,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(397,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(397,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(400,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(400,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(403,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(403,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(412,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(412,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(415,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(415,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(418,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(418,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(421,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(421,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(981,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(984,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(998,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1002,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(980,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(983,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(997,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1001,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1050,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1049,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1130,55): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1130,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(959,1): warning C4715: 'initializeSDL': not all control paths return a value
-C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(908,1): warning C4715: 'loadAllImages': not all control paths return a value
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(274,44): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(371,68): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(371,53): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(399,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(399,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(402,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(402,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(405,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(405,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(408,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(408,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(417,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(417,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(420,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(420,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(423,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(423,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(426,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(426,47): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1022,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1025,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1039,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1043,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1021,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1024,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1038,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1042,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1093,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1092,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1173,55): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1173,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1280,55): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1280,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(1000,1): warning C4715: 'initializeSDL': not all control paths return a value
+C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\main.cpp(949,1): warning C4715: 'loadAllImages': not all control paths return a value
   szablon2vs19.vcxproj -> C:\Users\Stan Swirydczuk\Desktop\dongkong\continuing from january\donkey kong\x64\Debug\szablon2vs19.exe
